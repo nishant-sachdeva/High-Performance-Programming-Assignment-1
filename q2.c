@@ -1,5 +1,7 @@
 #include "stdio.h"
 
+#define bottle_neck 43
+
 
 void merge(int arr[], int l, int m, int r) 
 { 
@@ -51,25 +53,44 @@ void merge(int arr[], int l, int m, int r)
         arr[k] = R[j]; 
         j++; 
         k++; 
-    } 
+    }
 } 
 
 
 void merge_sort(int arr[] , int left, int right)
 {
-    
-    if (left < right) 
-    { 
-        // Same as (l+r)/2, but avoids overflow for 
-        // large l and h 
-        int m = left+(right-left)/2; 
+    if ( right-left+1 <= bottle_neck )
+    {
+        // then we implement insertion sort and return the array as such
+        // apparetly this has a 10 to 15 % increase in performance
+        for (int key = 0, j= 0 , i = left + 1; i <= right; i++)
+        { 
+            key = arr[i]; 
+            j = i - 1; 
   
-        // Sort first and second halves 
-        merge_sort(arr, left, m); 
-        merge_sort(arr, m+1, right); 
-        
-        // if( arr[m] > arr[m+1])
-            merge(arr, left, m, right); 
+            while (j >= left && arr[j] > key)
+            { 
+                arr[j + 1] = arr[j]; 
+                j = j - 1; 
+            } 
+            arr[j + 1] = key; 
+        }
+    }
+    else 
+    {
+        if (left < right) 
+        { 
+            // Same as (l+r)/2, but avoids overflow for 
+            // large l and h 
+            int m = left+(right-left)/2; 
+      
+            // Sort first and second halves 
+            merge_sort(arr, left, m); 
+            merge_sort(arr, m+1, right); 
+            
+            // if( arr[m] > arr[m+1])
+                merge(arr, left, m, right); 
+        }
     }
     return;
 }
