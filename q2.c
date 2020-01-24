@@ -5,6 +5,7 @@
 
 void merge(int arr[], int l, int m, int r) 
 { 
+    // printf("entering merge function\n");
     int i, j, k; 
     int n1 = m - l + 1; 
     int n2 =  r - m; 
@@ -64,12 +65,9 @@ void merge(int arr[], int l, int m, int r)
 
 void insertion_sort(int arr[] , int left, int right)
 {
+    // printf("entering insertion_sort function\n");
     int n = right -left + 1;
 
-    if (  n <= bottle_neck )
-    {
-        // then we implement insertion sort and return the array as such
-        // apparetly this has a 10 to 15 % increase in performance
         for (int key = 0, j= 0 , i = left + 1; i <= right; i++)
         { 
             key = arr[i]; 
@@ -83,41 +81,43 @@ void insertion_sort(int arr[] , int left, int right)
             arr[j + 1] = key; 
         }
         return;
-    }
 }
 
+
+int min(int a, int b)
+{
+    return a < b ? a : b ;
+}
 
 
 void merge_sort(int arr[], int left, int right) 
 {
 
     // printf("we are in the new merge function\n");
-
     int n = right - left + 1;
 
-   for (int curr_size=1; curr_size<=n-1; curr_size <<= 1) 
+    for (int i = 0 , a = n-1 ; i<n ; i += bottle_neck)
+    {
+        int b =  i + bottle_neck - 1;
+        b = b ^ ((a^b) & -( a < b) );
+        insertion_sort(arr, i , b);
+    }
+
+
+   for (int curr_size=bottle_neck; curr_size<=n-1; curr_size <<= 1) 
    {
        for (int left_start=0; left_start<n-1; left_start += (curr_size<<1)) 
        { 
-           // Find ending point of left subarray. mid+1 is starting  
-           // point of right 
+               int a  = left_start + curr_size - 1;
+               int b  = n - 1;
 
-           if ( curr_size < bottle_neck)
-           {
-            insertion_sort(arr, left_start , left_start + curr_size*2 - 1);
-            continue;
-           }
-           int a  = left_start + curr_size - 1;
-           int b  = n - 1;
+               int mid = b ^ ((a^b) & -( a < b) );
+               
+               a += curr_size ;  
 
-           int mid = b ^ ((a^b) & -( a < b) );
-           
-           a += curr_size ;  
-
-           int right_end = b ^ ((a^b) & -( a < b) ); 
-  
-           // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end] 
-           merge(arr, left_start, mid, right_end); 
+               int right_end = b ^ ((a^b) & -( a < b) ); 
+      
+               merge(arr, left_start, mid, right_end);  
        } 
    } 
    return;
