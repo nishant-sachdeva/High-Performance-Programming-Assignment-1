@@ -15,13 +15,12 @@ int main()
     // now we generate an array of random numbers and the pass it for further testing
 
 	for(int i = 0 ; i< n; i++)
-        // arr[i] = (int) ( (double)rand()  / (double)RAND_MAX ) ;
-        arr[i] = n - i;
+        arr[i] = (int) ( (double)rand()  / (double)RAND_MAX ) ;
+        // arr[i] = n - i;
 
     clock_t start_time, end_time;
 
-    // __asm__ (CLFLUSH m8);
-    CLFLUSH m8
+    // __asm__ ("CLFLUSH m8");
 
     start_time = clock();
     // make the function call

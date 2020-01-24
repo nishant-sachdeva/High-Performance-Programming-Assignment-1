@@ -1,6 +1,6 @@
 #include "stdio.h"
 
-#define bottle_neck 10
+#define bottle_neck 32
 
 void merge(int arr[], int l, int m, int r) 
 { 
