@@ -21,7 +21,7 @@ int main()
     clock_t start_time, end_time;
 
     // __asm__ ("CLFLUSH m8");
-
+                    // asm volatile ("clflush (%0)" :: "r"(p));
     start_time = clock();
     // make the function call
 

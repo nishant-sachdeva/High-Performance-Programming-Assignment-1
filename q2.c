@@ -95,6 +95,8 @@ void merge_sort(int arr[], int left, int right)
         int b =  i + bottle_neck - 1;
         b = b ^ ((a^b) & -( a < b) );
         insertion_sort(arr, i , b);
+        __builtin_prefetch (&arr[i+bottle_neck], 1, 3);
+        
     }
 
 
