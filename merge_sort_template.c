@@ -2,11 +2,11 @@
 #include <time.h>
 #include<stdlib.h>
 
-#include "q2.c"
+#include "q2_for_submission.c"
 
 #define n 1000000
 
-void merge_sort(int arr[], int left, int right);
+int * merge_sort(int *arr, int size);
 
 int main()
 {
@@ -25,7 +25,7 @@ int main()
     start_time = clock();
     // make the function call
 
-    merge_sort(arr , 0 , n-1);
+    merge_sort(arr , n);
     // printf("okay wer are back\n");
 
     end_time = clock() - start_time;

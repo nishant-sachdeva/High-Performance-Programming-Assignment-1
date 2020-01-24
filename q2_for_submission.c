@@ -132,7 +132,7 @@ int* merge_sort(int *arr, int n)
 }
 
 
-int main()
-{
-	return 0;
-}
+// int main()
+// {
+// 	return 0;
+// }
