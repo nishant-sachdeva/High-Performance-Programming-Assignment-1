@@ -1,6 +1,6 @@
 #include "stdio.h"
 
-#define bottle_neck 20
+#define bottle_neck 43
 
 
 void merge(int arr[], int l, int m, int r) 
@@ -61,16 +61,9 @@ void merge(int arr[], int l, int m, int r)
 } 
 
 
-int min (int a, int b)
+
+void insertion_sort(int arr[] , int left, int right)
 {
-    return b ^ ((a^b) & -( a < b) );
-}
-
-
-
-void merge_sort(int arr[], int left, int right) 
-{
-
     int n = right -left + 1;
 
     if (  n <= bottle_neck )
@@ -91,21 +84,36 @@ void merge_sort(int arr[], int left, int right)
         }
         return;
     }
+}
 
-   for (int curr_size=1; curr_size<=n-1; curr_size = 2*curr_size) 
-   { 
-       // Pick starting point of different subarrays of current size 
-       for (int left_start=0; left_start<n-1; left_start += 2*curr_size) 
+
+
+void merge_sort(int arr[], int left, int right) 
+{
+
+    // printf("we are in the new merge function\n");
+
+    int n = right - left + 1;
+
+   for (int curr_size=1; curr_size<=n-1; curr_size <<= 1) 
+   {
+       for (int left_start=0; left_start<n-1; left_start += (curr_size<<1)) 
        { 
            // Find ending point of left subarray. mid+1 is starting  
            // point of right 
+
+           if ( curr_size < bottle_neck)
+           {
+            insertion_sort(arr, left_start , left_start + curr_size*2 - 1);
+            continue;
+           }
            int a  = left_start + curr_size - 1;
            int b  = n - 1;
 
            int mid = b ^ ((a^b) & -( a < b) );
            
            a += curr_size ;  
-           
+
            int right_end = b ^ ((a^b) & -( a < b) ); 
   
            // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end] 
