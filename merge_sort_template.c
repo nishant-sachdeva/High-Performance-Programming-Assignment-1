@@ -6,7 +6,6 @@
 
 #define n 1000000
 
-
 void merge_sort(int arr[], int left, int right);
 
 int main()
@@ -21,8 +20,10 @@ int main()
 
     clock_t start_time, end_time;
 
-    start_time = clock();
+    // __asm__ (CLFLUSH m8);
+    CLFLUSH m8
 
+    start_time = clock();
     // make the function call
 
     merge_sort(arr , 0 , n-1);

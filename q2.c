@@ -1,7 +1,6 @@
 #include "stdio.h"
 
-#define bottle_neck 43
-
+#define bottle_neck 10
 
 void merge(int arr[], int l, int m, int r) 
 { 
@@ -83,11 +82,6 @@ void insertion_sort(int arr[] , int left, int right)
         return;
 }
 
-
-int min(int a, int b)
-{
-    return a < b ? a : b ;
-}
 
 
 void merge_sort(int arr[], int left, int right) 
