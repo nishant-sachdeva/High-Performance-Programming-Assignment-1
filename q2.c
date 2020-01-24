@@ -1,6 +1,6 @@
 #include "stdio.h"
 
-#define bottle_neck 43
+#define bottle_neck 20
 
 
 void merge(int arr[], int l, int m, int r) 
@@ -13,10 +13,18 @@ void merge(int arr[], int l, int m, int r)
     int L[n1], R[n2]; 
   
     /* Copy data to temp arrays L[] and R[] */
-    for (i = 0; i < n1; i++) 
+    i = 0;
+    while(i < n1) 
+    {
         L[i] = arr[l + i]; 
-    for (j = 0; j < n2; j++) 
+        i++;
+    }
+    j = 0;
+    while(j < n2)
+    {
         R[j] = arr[m + 1+ j]; 
+        j++;
+    }
   
     /* Merge the temp arrays back into arr[l..r]*/
     i = 0; // Initial index of first subarray 
@@ -41,25 +49,31 @@ void merge(int arr[], int l, int m, int r)
        are any */
     while (i < n1) 
     { 
-        arr[k] = L[i]; 
-        i++; 
-        k++; 
+        arr[k++] = L[i++]; 
     } 
   
     /* Copy the remaining elements of R[], if there 
        are any */
     while (j < n2) 
     { 
-        arr[k] = R[j]; 
-        j++; 
-        k++; 
+        arr[k++] = R[j++]; 
     }
 } 
 
 
-void merge_sort(int arr[] , int left, int right)
+int min (int a, int b)
 {
-    if ( right-left+1 <= bottle_neck )
+    return b ^ ((a^b) & -( a < b) );
+}
+
+
+
+void merge_sort(int arr[], int left, int right) 
+{
+
+    int n = right -left + 1;
+
+    if (  n <= bottle_neck )
     {
         // then we implement insertion sort and return the array as such
         // apparetly this has a 10 to 15 % increase in performance
@@ -75,22 +89,28 @@ void merge_sort(int arr[] , int left, int right)
             } 
             arr[j + 1] = key; 
         }
+        return;
     }
-    else 
-    {
-        if (left < right) 
-        { 
-            // Same as (l+r)/2, but avoids overflow for 
-            // large l and h 
-            int m = left+(right-left)/2; 
-      
-            // Sort first and second halves 
-            merge_sort(arr, left, m); 
-            merge_sort(arr, m+1, right); 
-            
-            // if( arr[m] > arr[m+1])
-                merge(arr, left, m, right); 
-        }
-    }
-    return;
-}
+
+   for (int curr_size=1; curr_size<=n-1; curr_size = 2*curr_size) 
+   { 
+       // Pick starting point of different subarrays of current size 
+       for (int left_start=0; left_start<n-1; left_start += 2*curr_size) 
+       { 
+           // Find ending point of left subarray. mid+1 is starting  
+           // point of right 
+           int a  = left_start + curr_size - 1;
+           int b  = n - 1;
+
+           int mid = b ^ ((a^b) & -( a < b) );
+           
+           a += curr_size ;  
+           
+           int right_end = b ^ ((a^b) & -( a < b) ); 
+  
+           // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end] 
+           merge(arr, left_start, mid, right_end); 
+       } 
+   } 
+   return;
+} 
