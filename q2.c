@@ -89,6 +89,7 @@ void merge_sort(int arr[], int left, int right)
 
     // printf("we are in the new merge function\n");
     int n = right - left + 1;
+    __builtin_prefetch (&arr[bottle_neck], 1, 3);
 
     for (int i = 0 , a = n-1 ; i<n ; i += bottle_neck)
     {
@@ -96,7 +97,7 @@ void merge_sort(int arr[], int left, int right)
         b = b ^ ((a^b) & -( a < b) );
         insertion_sort(arr, i , b);
         __builtin_prefetch (&arr[i+bottle_neck], 1, 3);
-        
+
     }
 
 
