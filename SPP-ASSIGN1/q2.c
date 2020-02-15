@@ -6,6 +6,7 @@
 
 
 
+
 void merge(int arr[], int l, int m, int r) 
 { 
     // printf("entering merge function\n");
@@ -80,7 +81,7 @@ void insertion_sort(int arr[] , int left, int right)
 
 int* merge_sort(int *arr, int n)
 {
-    printf("hi there\n");
+    // printf("hi there\n");
     // int *ret;
 
     register int i,curr_size,left_start,a;
@@ -100,7 +101,7 @@ int* merge_sort(int *arr, int n)
 
     }
 
-    printf("reaching past the insertion  sort stage\n");
+    // printf("reaching past the insertion  sort stage\n");
 
    for (curr_size=bottle_neck; curr_size<=n-1; curr_size <<= 1) 
    {
@@ -119,7 +120,7 @@ int* merge_sort(int *arr, int n)
                // printf("We finished a merge\n"); 
        } 
    } 
-   printf("almost there!\n");
+   // printf("almost there!\n");
    return arr;
 }
 

@@ -24,11 +24,10 @@ int main()
     clock_t start_time, end_time;
 
     // __asm__ ("CLFLUSH m8");
-
+    int *ans = NULL;
     start_time = clock();
     // make the function cal
-    printf("hi there in main\n");
-    int *ans = merge_sort(arr , n);
+    ans = merge_sort(arr , n);
     // printf("okay wer are back\n");
 
     end_time = clock() - start_time;
