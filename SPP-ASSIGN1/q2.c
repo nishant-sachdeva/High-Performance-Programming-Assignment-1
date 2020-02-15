@@ -5,6 +5,7 @@
 #define bottle_neck 32
 
 
+
 void merge(int arr[], int l, int m, int r) 
 { 
     // printf("entering merge function\n");
@@ -13,7 +14,9 @@ void merge(int arr[], int l, int m, int r)
     register int n2 =  r - m; 
   
     /* create temp arrays */
-    int L[n1], R[n2]; 
+    int *L, *R; 
+    L = (int*) malloc(n1 * sizeof(int));
+    R = (int*) malloc(n2 * sizeof(int));
   
     /* Copy data to temp arrays L[] and R[] */
     memcpy(L,(arr+l),sizeof(int)*n1);
@@ -46,6 +49,8 @@ void merge(int arr[], int l, int m, int r)
     /* Copy the remaining elements of R[], if there 
        are any */
     memcpy(arr+k,R,sizeof(int)*(n2-j));
+    free(L);
+    free(R);
 }
 
 
@@ -75,12 +80,12 @@ void insertion_sort(int arr[] , int left, int right)
 
 int* merge_sort(int *arr, int n)
 {
-    int *ret;
-    ret=malloc(sizeof(int)*n);
+    printf("hi there\n");
+    // int *ret;
 
     register int i,curr_size,left_start,a;
 
-    memcpy(ret, arr, n*sizeof(int));
+    // memcpy(ret, arr, n*sizeof(int));
 
     // printf("we are in the new merge function\n");
     // int n = right - left + 1;
@@ -95,6 +100,7 @@ int* merge_sort(int *arr, int n)
 
     }
 
+    printf("reaching past the insertion  sort stage\n");
 
    for (curr_size=bottle_neck; curr_size<=n-1; curr_size <<= 1) 
    {
@@ -109,17 +115,18 @@ int* merge_sort(int *arr, int n)
 
                register int right_end = b ^ ((a^b) & -( a < b) ); 
       
-               merge(arr, left_start, mid, right_end);  
+               merge(arr, left_start, mid, right_end);
+               // printf("We finished a merge\n"); 
        } 
    } 
-
-    return ret;
+   printf("almost there!\n");
+   return arr;
 }
 
 
-int main()
-{
+// int main()
+// {
     
 
-    return 0;   
-}
+//     return 0;   
+// }

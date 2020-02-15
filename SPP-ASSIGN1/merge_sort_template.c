@@ -6,11 +6,14 @@
 
 #define n 100000000
 
-int* merge_sort(int arr[], int left, int right);
+// int* merge_sort(int arr[], int left, int right);
+
+int large_global_array[100000000];
+
 
 int main()
 {
-    int arr[n];
+    int *arr = large_global_array;
 
     // now we generate an array of random numbers and the pass it for further testing
 
@@ -21,10 +24,11 @@ int main()
     clock_t start_time, end_time;
 
     // __asm__ ("CLFLUSH m8");
-    int * ans = NULL;
+
     start_time = clock();
-    // make the function call
-    ans = merge_sort(arr , 0 , n-1);
+    // make the function cal
+    printf("hi there in main\n");
+    int *ans = merge_sort(arr , n);
     // printf("okay wer are back\n");
 
     end_time = clock() - start_time;
